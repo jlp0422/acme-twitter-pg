@@ -19,14 +19,14 @@ db.sync((err) => {
   });
 });
 
-app.use('/tweets', require('./routes/tweets'))
-
 app.use((req, res, next) => {
   res.locals.path = req.url;
   // res.locals = /
   // res.locals.path = /, /tweets, /tweets/1, - depends on URL
   next()
 })
+
+app.use('/tweets', require('./routes/tweets'))
 
 app.get('/', (req, res, next) => {
   res.render('index', { title: 'Twitter'})
@@ -37,18 +37,6 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 })
-
-// UNNECESSARY, SINCE IN TWEETS.JS
-// app.use('/tweets', (req, res, next) => {
-//   // moved to tweets.js
-//   next()
-// });
-
-// app.use('/tweets/:id', (req, res, next) => {
-//   // moved to tweets.js
-//   // console.log(req.params.id) // equals 1, 2, etc
-//   next()
-// });
 
 // db.sync((err) => {
 //   if (err) return console.log(err);
