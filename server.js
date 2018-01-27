@@ -12,6 +12,13 @@ app.engine('html', nunjucks.render); // sets nunjucks as default render engine
 
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules'))); // hides any node modules or packages, re-routs using /vendor folder
 
+db.sync((err) => {
+  if (err) return console.log(err);
+  db.seed((err) => {
+    if (err) return console.log(err);
+  });
+});
+
 app.use('/tweets', require('./routes/tweets'))
 
 app.use((req, res, next) => {
@@ -59,5 +66,5 @@ app.listen(port, () => {
 //         })
 //       })
 //     })
-//   })
+//   });
 // });

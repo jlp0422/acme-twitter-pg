@@ -2,8 +2,12 @@
 
 {% block content %}
 <div>
+  <ul class="list-group">
   {% for tweet in tweets %}
-  <li>{{ tweet.username }}</li>
+  <li class="list-group-item">
+    <a href="/tweets/{{tweet.id}}">{{ tweet.username }}</a>
+  </li>
   {% endfor %}
+  </ul>
 </div>
 {% endblock %}
