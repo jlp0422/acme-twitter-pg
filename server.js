@@ -12,6 +12,8 @@ app.engine('html', nunjucks.render); // sets nunjucks as default render engine
 
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules'))); // hides any node modules or packages, re-routs using /vendor folder
 
+app.use('/tweets', require('./routes/tweets'))
+
 app.use((req, res, next) => {
   res.locals.path = req.url;
   // res.locals = /
@@ -23,32 +25,23 @@ app.get('/', (req, res, next) => {
   res.render('index', { title: 'Twitter'})
 })
 
-
-app.get('/tweets', (req, res, next) => {
-  // db.getTweets((err, tweets) => {
-  //   if (err) return next(err);
-  //   res.send(tweets);
-  // });
-  res.render('tweets', {title: 'Tweet'})
-});
-
-app.get('/tweets/:id', (req, res, next) => {
-  // db.getTweet(req.params.id, (err, user) => {
-  //   if (err) return next(err)
-  //   res.send(user)
-  // });
-  res.render('tweet', {title: `AAAahhhhh`})
-});
-
-app.use('/tweets', require('./routes/tweets'))
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 })
 
+// UNNECESSARY, SINCE IN TWEETS.JS
+// app.use('/tweets', (req, res, next) => {
+//   // moved to tweets.js
+//   next()
+// });
 
+// app.use('/tweets/:id', (req, res, next) => {
+//   // moved to tweets.js
+//   // console.log(req.params.id) // equals 1, 2, etc
+//   next()
+// });
 
 // db.sync((err) => {
 //   if (err) return console.log(err);

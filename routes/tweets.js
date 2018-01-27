@@ -6,10 +6,16 @@ const db = require ('../db');
 module.exports = app;
 
 app.get('/', (req, res, next) => {
-  res.render('tweets', {title: 'Tweets', tweets: db.getTweets() });
-})
+  db.getTweets((err, tweets) => {
+    if (err) return next(err);
+    // console.log(tweets)
+    res.render('tweets', { title: 'Tweets', tweets })
+  });
+});
 
 app.get('/:id', (req, res, next) => {
-  const tweet = db.getTweet(req.params.id)
-  res.render('tweet', {title: `${tweets.id}`, tweet})
+  db.getTweet(req.params.id, (err, user) => {
+    if (err) return next(err);
+    res.render('tweet', { title: `Tweet by ${user.username}`, user})
+  });
 })
