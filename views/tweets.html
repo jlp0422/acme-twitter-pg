@@ -1,0 +1,10 @@
+{% extends './layout.html' %}
+
+{% block content %}
+<div>
+  {% for tweet in tweets %}
+  <li>{{ tweet.id }}</li>
+  {% endfor %}
+  I hope this works
+</div>
+{% endblock %}
