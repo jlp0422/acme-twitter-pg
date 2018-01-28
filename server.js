@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/tweets', require('./routes/tweets'))
+app.use('/tweets', require('./routes/tweets')) // any pages that have /tweets will be routed through the tweets.js file
 
 app.get('/', (req, res, next) => {
   res.render('index', { title: 'Twitter'})
